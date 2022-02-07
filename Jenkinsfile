@@ -1,8 +1,12 @@
-﻿pipeline {
+﻿pipeline{
   agent any
 
   environment {
-    dotnet = 'C:\\Program Files (x86)\\dotnet'
+    dotnet = 'C:\\Program Files (x86)\\dotnet\\'
+  }
+
+  triggers {
+    pollSCM 'H * * * *'
   }
 
   stages {
@@ -43,7 +47,7 @@
     }
   }
 
-  post {
+ post {
     always {
       echo 'This will always run'
     }
@@ -51,7 +55,7 @@
       echo 'This will run only if successful'
     }
     failure {
-      echo 'hata alındı'
+      mail bcc: '', body: "<b>Example</b><br>Project: ${env.JOB_NAME} <br>Build Number: ${env.BUILD_NUMBER} <br> URL build: ${env.BUILD_URL}", cc: '', charset: 'UTF-8', from: '', mimeType: 'text/html', replyTo: '', subject: "ERROR CI: Project name -> ${env.JOB_NAME}", to: 'onurcan.yilmaz@@sensormatic.com.tr'
     }
     unstable {
       echo 'This will run only if the run was marked as unstable'
@@ -60,5 +64,6 @@
       echo 'This will run only if the state of the Pipeline has changed'
       echo 'For example, if the Pipeline was previously failing but is now successful'
     }
-  }
+ }
+
 }

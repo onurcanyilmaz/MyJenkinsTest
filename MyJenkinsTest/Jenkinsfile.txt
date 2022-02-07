@@ -1,0 +1,52 @@
+﻿pipeline {
+    agent any
+    environment {
+        PROJECT_NAME = "project-name"
+        PROJECT_URL = "project-url"
+        DOTNET ="dotnet-path"
+        COVERLET_OUTPUT_PATH = "coverlet-output-path"
+        SONAR_SCANNER ="sonar-scanner-path"
+        SONARQUBE_HOST_URL = "http://localhost:9000"
+        SONARQUBE_TOKEN = "sonarqube-token"
+        PROJECT_FILE_PATH ="WebApp/WebApp.csproj"
+        TEST_PROJECT_FILE_PATH="WebApp.Tests/WebApp.Tests.csproj"
+    }
+    stages {
+        stage('Checkout') {
+            steps {
+                git(
+                    credentialsId:"Github",
+                    url:"${PROJECT_URL}"
+                )
+            }
+        }
+        stage('Restore Packages') {
+            steps {
+                sh "${DOTNET} restore"
+            }
+        }
+        stage('Clean Project') {
+            steps {
+                sh "${DOTNET} clean"
+            }
+        }
+        stage('Build Project') {
+            steps {
+                sh "${DOTNET} build"
+            }
+        }
+        stage('Run Tests') {
+            steps {
+                sh "${DOTNET} test"
+            }
+        }
+        stage('Run Test Coverage') {
+            steps {
+                sh "${DOTNET} test --no-restore --no-build ${TEST_PROJECT_FILE_PATH} /p:CollectCoverage=true /p:CoverletOutputFormat=opencover /p:CoverletOutput=\"${COVERLET_OUTPUT_PATH}\""
+                sh "${SONAR_SCANNER} begin /k:\"${PROJECT_NAME}\" /d:sonar.host.url=\"${SONARQUBE_HOST_URL}\" /d:sonar.login=\"${SONARQUBE_TOKEN}\" /d:sonar.cs.opencover.reportsPaths=\"${COVERLET_OUTPUT_PATH}.opencover.xml\""
+                sh "${DOTNET} build"
+                sh "${SONAR_SCANNER} end /d:sonar.login=\"${SONARQUBE_TOKEN}\""
+            }
+        }
+    }
+}

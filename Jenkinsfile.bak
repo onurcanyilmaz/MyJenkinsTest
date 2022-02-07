@@ -3,7 +3,7 @@
     environment {
         PROJECT_NAME = "MyJenkinsTest"
         PROJECT_URL = "https://github.com/onurcanyilmaz/MyJenkinsTest"
-        DOTNET ="C:\\Program Files\\dotnet\\dotnet.exe"
+        DOTNET ="C:\Program Files\dotnet\dotnet.exe"
         COVERLET_OUTPUT_PATH = "coverlet-output-path"
         SONAR_SCANNER ="sonar-scanner-path"
         SONARQUBE_HOST_URL = "http://localhost:9000"

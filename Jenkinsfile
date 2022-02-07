@@ -1,16 +1,19 @@
-﻿pipeline{
+﻿
 
-agent any
 
-environment {
-dotnet = 'C:\\Program Files (x86)\\dotnet\\'
-}
 
-triggers {
+pipeline {
+  agent any
+
+  environment {
+    dotnet = 'C:\\Program Files (x86)\\dotnet\\'
+  }
+
+  triggers {
     pollSCM 'H * * * *'
-}
+  }
 
-stages {
+  stages {
     stage('Checkout') {
       steps {
         git credentialsId: '', url: 'https://github.com/onurcanyilmaz/MyJenkinsTest.git', branch: 'master'
@@ -48,7 +51,7 @@ stages {
     }
   }
 
- post {
+  post {
     always {
       echo 'This will always run'
     }
@@ -66,5 +69,4 @@ stages {
       echo 'For example, if the Pipeline was previously failing but is now successful'
     }
   }
-
 }

@@ -1,15 +1,16 @@
-﻿pipeline {
-  agent any
+﻿pipeline{
 
-  environment {
-    dotnet = 'C:\\Program Files (x86)\\dotnet\\'
-  }
+agent any
 
-  triggers {
+environment {
+dotnet = 'C:\\Program Files (x86)\\dotnet\\'
+}
+
+triggers {
     pollSCM 'H * * * *'
-  }
+}
 
-  stages {
+stages {
     stage('Checkout') {
       steps {
         git credentialsId: '', url: 'https://github.com/onurcanyilmaz/MyJenkinsTest.git', branch: 'master'
@@ -46,7 +47,8 @@
       }
     }
   }
-  post {
+
+ post {
     always {
       echo 'This will always run'
     }
@@ -54,8 +56,7 @@
       echo 'This will run only if successful'
     }
     failure {
-      echo "Project: ${env.JOB_NAME}, Build Number: ${env.BUILD_NUMBER}, URL de build: ${env.BUILD_URL}, name: ${env.STAGE_NAME}"
-      mail bcc: '', body: "<b>Example</b><br>Project: ${env.JOB_NAME} <br>Build Number: ${env.BUILD_NUMBER} <br> URL de build: ${env.BUILD_URL}", cc: '', charset: 'UTF-8', from: '', mimeType: 'text/html', replyTo: '', subject: "ERROR CI: Project name -> ${env.JOB_NAME}", to: "onurcan.yilmaz@sensormatic.com.tr";
+      mail bcc: '', body: "<b>Example</b><br>Project: ${env.JOB_NAME} <br>Build Number: ${env.BUILD_NUMBER} <br> URL de build: ${env.BUILD_URL}", cc: '', charset: 'UTF-8', from: '', mimeType: 'text/html', replyTo: '', subject: "ERROR CI: Project name -> ${env.JOB_NAME}", to: 'onurcan.yilmaz@sensormatic.com.tr'
 
     }
     unstable {
@@ -66,4 +67,5 @@
       echo 'For example, if the Pipeline was previously failing but is now successful'
     }
   }
+
 }

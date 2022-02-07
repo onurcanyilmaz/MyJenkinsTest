@@ -1,21 +1,20 @@
 ﻿pipeline {
     agent any
     environment {
-        PROJECT_NAME = "project-name"
-        PROJECT_URL = "project-url"
-        DOTNET ="dotnet-path"
+        PROJECT_NAME = "MyJenkinsTest"
+        PROJECT_URL = "https://github.com/onurcanyilmaz/MyJenkinsTest"
+        DOTNET ="C:\Program Files\dotnet\dotnet.exe"
         COVERLET_OUTPUT_PATH = "coverlet-output-path"
         SONAR_SCANNER ="sonar-scanner-path"
         SONARQUBE_HOST_URL = "http://localhost:9000"
-        SONARQUBE_TOKEN = "sonarqube-token"
-        PROJECT_FILE_PATH ="WebApp/WebApp.csproj"
-        TEST_PROJECT_FILE_PATH="WebApp.Tests/WebApp.Tests.csproj"
+        SONARQUBE_TOKEN = "eecc3a5f4f1828dc744ae2af783a6ae446bec8c6"
+        PROJECT_FILE_PATH ="MyJenkinsTest/MyJenkinsTest.csproj"
+        TEST_PROJECT_FILE_PATH="MyJenkinsTest.NUnitTestProject/MyJenkinsTest.NUnitTestProject.csproj"
     }
     stages {
         stage('Checkout') {
             steps {
                 git(
-                    credentialsId:"Github",
                     url:"${PROJECT_URL}"
                 )
             }

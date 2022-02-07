@@ -51,6 +51,7 @@ pipeline {
       echo 'The pipeline was started'
     }
     success {
+	  mail bcc: '', body: "<b>Success</b><br>Project: ${env.JOB_NAME} <br>Build Number: ${env.BUILD_NUMBER} <br> URL build: ${env.BUILD_URL}", cc: '', charset: 'UTF-8', from: '', mimeType: 'text/html', replyTo: '', subject: "ERROR CI: Project name -> ${env.JOB_NAME}", to: 'onurcan.yilmaz@sensormatic.com.tr'
       echo 'The pipeline was succeeded'
     }
     failure {

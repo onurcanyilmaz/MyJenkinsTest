@@ -56,8 +56,7 @@ stages {
       echo 'This will run only if successful'
     }
     failure {
-      mail bcc: '', body: "<b>Example</b><br>Project: ${env.JOB_NAME} <br>Build Number: ${env.BUILD_NUMBER} <br> URL build: ${env.BUILD_URL}", cc: '', charset: 'UTF-8', from: '', mimeType: 'text/html', replyTo: '', subject: "ERROR CI: Project name -> ${env.JOB_NAME}", to: 'onurcan.yilmaz@@sensormatic.com.tr'
-
+      echo 'hata alındı'
     }
     unstable {
       echo 'This will run only if the run was marked as unstable'

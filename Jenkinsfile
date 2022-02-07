@@ -46,23 +46,21 @@ pipeline {
       }
     }
   }
-
   post {
     always {
-      echo 'This will always run'
+      echo 'The pipeline was started'
     }
     success {
-      echo 'This will run only if successful'
+      echo 'The pipeline was succeeded'
     }
     failure {
       mail bcc: '', body: "<b>Example</b><br>Project: ${env.JOB_NAME} <br>Build Number: ${env.BUILD_NUMBER} <br> URL build: ${env.BUILD_URL}", cc: '', charset: 'UTF-8', from: '', mimeType: 'text/html', replyTo: '', subject: "ERROR CI: Project name -> ${env.JOB_NAME}", to: 'onurcan.yilmaz@sensormatic.com.tr'
     }
     unstable {
-      echo 'This will run only if the run was marked as unstable'
+      echo 'The pipeline was marked as unstable'
     }
     changed {
-      echo 'This will run only if the state of the Pipeline has changed'
-      echo 'For example, if the Pipeline was previously failing but is now successful'
+      echo 'The Pipeline has changed'
     }
   }
 }

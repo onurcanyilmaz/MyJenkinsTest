@@ -13,7 +13,6 @@ namespace MyJenkinsTest.NUnitTestProject
         public void Test1()
         {
             Assert.Pass();
-
         }
     }
 }

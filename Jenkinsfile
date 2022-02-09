@@ -49,7 +49,7 @@ pipeline {
     stage('Building our image') {
       steps {
         script {
-          app = docker.build("onurcanyilmaz/MyJenkinsTest")
+          app = docker.build("onurcanyilmaz/myjenkinstest")
         }
       }
     }

@@ -49,7 +49,7 @@ pipeline {
     stage('Building our image') {
       steps {
         script {
-          app = docker.build("getintodevops/hellonode")
+          app = docker.build("onurcanyilmaz/MyJenkinsTest")
         }
       }
     }

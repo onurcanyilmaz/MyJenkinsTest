@@ -45,21 +45,21 @@ pipeline {
         bat "dotnet publish MyJenkinsTest\\MyJenkinsTest.csproj"
       }
     }
-	
-	stage('Building our image') {
-	 steps{
-		script {
-				docker.build("getintodevops/hellonode")
-			}
-		}
-	}
+
+    stage('Building our image') {
+      steps {
+        script {
+          app = docker.build("getintodevops/hellonode")
+        }
+      }
+    }
   }
   post {
     always {
       echo 'The pipeline was started'
     }
     success {
-	  //mail bcc: '', body: "<b>Deployment Status:</b><br>Project: ${env.JOB_NAME} <br>Build Number: ${env.BUILD_NUMBER} <br> URL build: ${env.BUILD_URL}", cc: '', charset: 'UTF-8', from: '', mimeType: 'text/html', replyTo: '', subject: "SUCCESS CI: Project name -> ${env.JOB_NAME}", to: 'onurcan.yilmaz@sensormatic.com.tr'
+      //mail bcc: '', body: "<b>Deployment Status:</b><br>Project: ${env.JOB_NAME} <br>Build Number: ${env.BUILD_NUMBER} <br> URL build: ${env.BUILD_URL}", cc: '', charset: 'UTF-8', from: '', mimeType: 'text/html', replyTo: '', subject: "SUCCESS CI: Project name -> ${env.JOB_NAME}", to: 'onurcan.yilmaz@sensormatic.com.tr'
       echo 'The pipeline was succeeded'
     }
     failure {

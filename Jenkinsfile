@@ -49,7 +49,15 @@ pipeline {
     stage('Building our image') {
       steps {
         script {
-          app = docker.build("myjenkinsapp")
+          bat "docker build -t myapp"
+        }
+      }
+    }
+
+    stage('Saving our image') {
+      steps {
+        script {
+          bat "docker image save -o C:\\Users\\oyilmaz\\Desktop\\tars\\myapp.tar myapp"
         }
       }
     }

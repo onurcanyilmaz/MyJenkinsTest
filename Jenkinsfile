@@ -49,7 +49,7 @@ pipeline {
     stage('Building our image') {
       steps {
         script {
-          bat "docker build -t myapp"
+          bat "docker build -t myapp ."
         }
       }
     }

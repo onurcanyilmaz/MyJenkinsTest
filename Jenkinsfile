@@ -49,7 +49,9 @@ pipeline {
     stage('Building our image') {
       steps {
         script {
-          bat "docker build -t myapp ."
+         def project_branch_name = "${GIT_BRANCH}"
+          project_branch_name = project_branch_name.replace("/","_")
+          bat "docker build -t " + project_branch_name + " ."
         }
       }
     }
@@ -57,14 +59,16 @@ pipeline {
     stage('Saving our image') {
       steps {
         script {
-          bat "docker image save -o C:\\Users\\oyilmaz\\Desktop\\tars\\myapp.tar myapp"
+        def project_branch_name = "${GIT_BRANCH}"
+          project_branch_name = project_branch_name.replace("/","_")
+          bat "docker image save -o C:\\Users\\oyilmaz\\Desktop\\tars\\" + project_branch_name+ ".tar " + project_branch_name
         }
       }
     }
   }
   post {
     always {
-      echo 'The pipeline was started'
+      echo "The pipeline was started. Brach Name: ${GIT_BRANCH}"
     }
     success {
       mail bcc: '', body: "<b>Deployment Status:</b><br>Project: ${env.JOB_NAME} <br>Build Number: ${env.BUILD_NUMBER} <br> URL build: ${env.BUILD_URL}", cc: '', charset: 'UTF-8', from: '', mimeType: 'text/html', replyTo: '', subject: "SUCCESS CI: Project name -> ${env.JOB_NAME}", to: 'onurcan.yilmaz@sensormatic.com.tr'

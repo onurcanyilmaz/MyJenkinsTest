@@ -49,14 +49,22 @@ pipeline {
     stage('Building our image') {
       steps {
         script {
-          app = docker.build("onurcanyilmaz/myjenkinstest")
+          bat "docker build -t ${GIT_BRANCH} ."
+        }
+      }
+    }
+
+    stage('Saving our image') {
+      steps {
+        script {
+          bat "docker image save -o C:\\Users\\oyilmaz\\Desktop\\tars\\${GIT_BRANCH}.tar ${GIT_BRANCH}"
         }
       }
     }
   }
   post {
     always {
-      echo 'The pipeline was started'
+      echo "The pipeline was started. Brach Name: ${GIT_BRANCH}"
     }
     success {
       mail bcc: '', body: "<b>Deployment Status:</b><br>Project: ${env.JOB_NAME} <br>Build Number: ${env.BUILD_NUMBER} <br> URL build: ${env.BUILD_URL}", cc: '', charset: 'UTF-8', from: '', mimeType: 'text/html', replyTo: '', subject: "SUCCESS CI: Project name -> ${env.JOB_NAME}", to: 'onurcan.yilmaz@sensormatic.com.tr'

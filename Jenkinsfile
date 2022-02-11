@@ -49,7 +49,9 @@ pipeline {
     stage('Building our image') {
       steps {
         script {
-          bat "docker build -t ${GIT_BRANCH.replace("/","_")} ."
+          project_branch_name = ${GIT_BRANCH}
+          project_branch_name = project_branch_name.replace("/","_")
+          bat "docker build -t " + project_branch_name + " ."
         }
       }
     }
@@ -57,7 +59,9 @@ pipeline {
     stage('Saving our image') {
       steps {
         script {
-          bat "docker image save -o C:\\Users\\oyilmaz\\Desktop\\tars\\${GIT_BRANCH.replace("/","_")}.tar $${GIT_BRANCH.replace("/","_")}"
+          project_branch_name = ${GIT_BRANCH}
+          project_branch_name = project_branch_name.replace("/","_")
+          bat "docker image save -o C:\\Users\\oyilmaz\\Desktop\\tars\\" + project_branch_name+ ".tar " + project_branch_name
         }
       }
     }

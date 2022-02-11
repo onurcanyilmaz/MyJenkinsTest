@@ -64,7 +64,7 @@ pipeline {
   }
   post {
     always {
-      echo 'The pipeline was started'
+      echo "The pipeline was started. Brach Name: ${GIT_BRANCH}"
     }
     success {
       mail bcc: '', body: "<b>Deployment Status:</b><br>Project: ${env.JOB_NAME} <br>Build Number: ${env.BUILD_NUMBER} <br> URL build: ${env.BUILD_URL}", cc: '', charset: 'UTF-8', from: '', mimeType: 'text/html', replyTo: '', subject: "SUCCESS CI: Project name -> ${env.JOB_NAME}", to: 'onurcan.yilmaz@sensormatic.com.tr'

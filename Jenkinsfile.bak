@@ -49,7 +49,7 @@ pipeline {
     stage('Building our image') {
       steps {
         script {
-          bat "docker build -t myapp ."
+          bat "docker build -t ${GIT_BRANCH} ."
         }
       }
     }
@@ -57,7 +57,7 @@ pipeline {
     stage('Saving our image') {
       steps {
         script {
-          bat "docker image save -o C:\\Users\\oyilmaz\\Desktop\\tars\\myapp.tar myapp"
+          bat "docker image save -o C:\\Users\\oyilmaz\\Desktop\\tars\\${GIT_BRANCH}.tar ${GIT_BRANCH}"
         }
       }
     }

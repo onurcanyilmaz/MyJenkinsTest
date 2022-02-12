@@ -15,6 +15,7 @@ namespace MyJenkinsTest
         {
             CreateHostBuilder(args).Build().Run();
         }
+        //some changes feature
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
